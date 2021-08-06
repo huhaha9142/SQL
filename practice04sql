@@ -19,9 +19,45 @@ WHERE e.salary BETWEEN t.avgSalary AND t.maxSalary
 ORDER BY salary;
 
 -- 문제 3.
+-- 쿼리 1 : Steven King이 소속된 부서?
+SELECT department_id
+FROM employees
+WHERE first_name = 'Steven' AND last_name = 'King';
 
+-- 쿼리 2 : Steven King이 소속된 부서가 위치한 location 정보?
+SELECT location_id
+FROM departments
+WHERE department_id = ( SELECT department_id 
+                         FROM employees
+                        WHERE first_name = 'Steven' AND last_name = 'King');
 
+-- 최종 쿼리
+SELECT location_id,
+    street_address,
+    postal_code,
+    city,
+    state_province,
+    country_id
+FROM locations
+WHERE location_id = ( SELECT location_id
+                        FROM departments
+                        WHERE department_id =
+                            (SELECT department_id
+                                FROM employees
+                            WHERE first_name = 'Steven' AND last_name = 'King'));
+                            
+-- 문제 4.
+-- 쿼리 1
+SELECT salary
+FROM employees
+WHERE job_id = 'ST_MAN';    -- ST MAN의 급여 정보
 
+-- 최종 쿼리
+SELECT employee_id, first_name, salary
+FROM employees
+WHERE salary < ANY ( SELECT salary
+                        FROM employees
+                        WHERE job_id = 'ST_MAN');
 
 
 -- 문제 5.
