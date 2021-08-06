@@ -1,0 +1,82 @@
+-- 문제 1.
+SELECT COUNT(salary)
+FROM employees
+WHERE salary < (SELECT AVG(salary) FROM employees);
+
+-- 문제 2.
+-- 사용할 서브쿼리
+SELECT AVG(salary) avgSalary,
+                        MAX(salary) maxSalary
+                    FROM employees;
+-- 답
+SELECT e.employee_id, e.first_name,
+    e.salary, t.avgSalary, t.maxSalary
+FROM employees e, (SELECT AVG(salary) avgSalary,
+                        MAX(salary) maxSalary
+                    FROM employees) t
+                    
+WHERE e.salary BETWEEN t.avgSalary AND t.maxSalary
+ORDER BY salary;
+
+-- 문제 3.
+
+
+
+
+
+-- 문제 5.
+-- 쿼리 1
+SELECT department_id, MAX(salary)
+FROM employees
+GROUP BY department_id;
+
+-- 최종 쿼리
+SELECT employee_id, first_name,
+    salary, department_id
+FROM employees
+WHERE (department_id, salary) IN 
+        ( SELECT department_id, MAX(salary)
+            FROM employees
+             GROUP BY department_id )
+ORDER BY salary DESC;
+
+-- 최종쿼리: 테이블 조인
+SELECT e.employee_id, e.first_name,
+    e.salary, e.department_id
+FROM employees e, 
+    ( SELECT department_id, MAX(salary) salary
+        FROM employees
+        GROUP BY department_id ) t
+WHERE e.department_id = t.department_id AND
+    e.salary = t.salary 
+ORDER BY e.salary DESC;
+
+-- 문제 6.
+-- 쿼리1
+SELECT job_id, SUM(salary) sumSalary
+FROM employees GROUP BY job_id;
+-- 최종 쿼리
+SELECT j.job_title,
+    t.sumSalary
+FROM jobs j, ( SELECT 
+                    job_id, 
+                        SUM(salary) sumSalary
+                    FROM employees GROUP BY job_id ) t
+WHERE j.job_id = t.job_id
+ORDER BY t.sumSalary DESC;
+
+-- 문제 7.
+-- 쿼리1
+SELECT department_id, AVG(salary) salary
+FROM employees GROUP BY department_id;
+
+-- 최종 쿼리
+SELECT e.employee_id,
+    e.first_name,
+    e.salary
+FROM employees e, 
+    ( SELECT department_id, AVG(salary) salary
+        FROM employees GROUP BY department_id ) t
+WHERE e.department_id = t.department_id AND
+    e.salary > t.salary;
+    
