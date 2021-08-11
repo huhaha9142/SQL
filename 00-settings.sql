@@ -9,7 +9,7 @@ ALTER SESSION SET "_ORACLE_SCRIPT" = true;
 -- 파라미터 1: HR계정 비밀번호 - hr
 -- 파라미터 2: 기본 테이블스페이스 - users
 -- 파라미터 3: 임시 테이블스페이스 - temp
--- 파라미터 4: 로그 파일 위치 - %ORACLE_HOME%\deom\schema\log
+-- 파라미터 4: 로그 파일 위치 - %ORACLE_HOME%\demo\schema\log
 
 -- HR 계정으로 진행
 -- 내가 가진 테이블 목록 확인
