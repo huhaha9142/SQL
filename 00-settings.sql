@@ -12,7 +12,7 @@ ALTER SESSION SET "_ORACLE_SCRIPT" = true;
 -- 파라미터 4: 로그 파일 위치 - %ORACLE_HOME%\demo\schema\log
 
 -- HR 계정으로 진행
--- 내가 가진 테이블 목록 확인
+-- 내가 가진 테이블 목록  확인
 SELECT * FROM tab;
 -- 특정 테이블의 정보 확인
 DESC employees;
