@@ -328,3 +328,5 @@ FROM employees;
 --    부서 코드: 40 ~ 50 -> B-Group
 --    부서 코드: 60 ~ 100 -> C-Group
 --      나머지: REMAINDER
+
+SELECT * FROM
